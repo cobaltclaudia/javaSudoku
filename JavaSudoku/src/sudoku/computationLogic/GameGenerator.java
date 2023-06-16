@@ -17,26 +17,27 @@ public class GameGenerator {
     private static int[][] unsolvedGame(int[][] solvedGame) {
         Random random = new Random(System.currentTimeMillis());
         boolean solvable = false;
-        int[][] solveableArray = new int[GRID_BOUNDARY][GRID_BOUNDARY];
+        int[][] solvableArray = new int[GRID_BOUNDARY][GRID_BOUNDARY];
 
         while (!solvable) {
-            SudokuUtilities.copySudokuArrayValues(solvedGame, solveableArray);
+            SudokuUtilities.copySudokuArrayValues(solvedGame, solvableArray);
             int index = 0;
 
             while (index < 40) {
                 int xCoordinate = random.nextInt(GRID_BOUNDARY);
                 int yCoordinate = random.nextInt(GRID_BOUNDARY);
-                if (solveableArray[xCoordinate][yCoordinate] != 0) {
-                    solveableArray[xCoordinate][yCoordinate] = 0;
+
+                if (solvableArray[xCoordinate][yCoordinate] != 0) {
+                    solvableArray[xCoordinate][yCoordinate] = 0;
                     index++;
                 }
             }
 
             int[][] toBeSolved = new int[GRID_BOUNDARY][GRID_BOUNDARY];
-            SudokuUtilities.copySudokuArrayValues(solveableArray, toBeSolved);
+            SudokuUtilities.copySudokuArrayValues(solvableArray, toBeSolved);
             solvable = SudokuSolver.puzzleIsSolvable(toBeSolved);
         }
-        return solveableArray;
+        return solvableArray;
     }
 
     private static int[][] getSolvedGame() {
@@ -50,7 +51,7 @@ public class GameGenerator {
 
             while (allocations < GRID_BOUNDARY) {
                 if (interrupt > 200) {
-                    allocTracker.forEach(coordinates -> newGrid[coordinates.getX()][coordinates.getY()] = 0);
+                    allocTracker.forEach(coord -> newGrid[coord.getX()][coord.getY()] = 0);
 
                     interrupt = 0;
                     allocations = 0;

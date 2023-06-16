@@ -31,12 +31,12 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private static final double WINDOW_X = 668;
     private static final double BOARD_PADDING = 50;
     private static final double BOARD_X_AND_Y = 576;
-    private static final Color WINDOW_BACKGROUND_COLOR = Color.BLUE;
+    private static final Color WINDOW_BACKGROUND_COLOR = Color.CORNFLOWERBLUE;
     private static final Color BOARD_BACKGROUND_COLOR = Color.WHITE;
     private static final String SUDOKU = "Sudoku";
 
     public UserInterfaceImpl(Stage stage) {
-        this.stage = stage;
+        this.stage =  stage;
         this.root = new Group();
         this.textFieldCoordinates = new HashMap<>();
         initializeUserInterface();
@@ -76,10 +76,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
                     BOARD_X_AND_Y
             );
 
-            root.getChildren().addAll(
-                    verticalLine,
-                    horizontalLine
-            );
+            root.getChildren().addAll(verticalLine, horizontalLine);
             index++;
         }
     }
@@ -121,12 +118,10 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
         Font numberFont = new Font(32);
         tile.setFont(numberFont);
         tile.setAlignment(Pos.CENTER);
-
         tile.setLayoutX(x);
         tile.setLayoutY(y);
         tile.setPrefHeight(64);
         tile.setPrefWidth(64);
-
         tile.setBackground(Background.EMPTY);
 
 
@@ -215,6 +210,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
                 ((TextField) event.getSource()).setText("");
             }
         }
+        event.consume();
     }
 
     private void handleInput(int value, Object source) {

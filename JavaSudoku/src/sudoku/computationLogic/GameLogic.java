@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static sudoku.constants.Rows.TOP;
+import static sudoku.constants.Rows.*;
 import static sudoku.problemDomain.SudokuGame.GRID_BOUNDARY;
 
 public class GameLogic {
@@ -26,7 +26,7 @@ public class GameLogic {
         return GameState.COMPLETE;
     }
 
-    static boolean sudokuIsInvalid(int[][] grid) {
+    public static boolean sudokuIsInvalid(int[][] grid) {
         if (rowsAreInvalid(grid)) return true;
         if (columnsAreInvalid(grid)) return true;
         return squaresAreInvalid(grid);
@@ -57,30 +57,30 @@ public class GameLogic {
 
     private static boolean squaresAreInvalid(int[][] grid) {
         if (rowsOfSquaresIsInvalid(TOP, grid)) return true;
-        if (rowsOfSquaresIsInvalid(Rows.MIDDLE, grid)) return true;
-        return rowsOfSquaresIsInvalid(Rows.BOTTOM, grid);
+        if (rowsOfSquaresIsInvalid(MIDDLE, grid)) return true;
+        return rowsOfSquaresIsInvalid(BOTTOM, grid);
     }
 
     private static boolean rowsOfSquaresIsInvalid(Rows value, int[][] grid) {
         switch (value) {
-            case TOP -> {
+            case TOP:
                 if (squareIsInvalid(0, 0, grid)) return true;
                 if (squareIsInvalid(0, 3, grid)) return true;
                 return squareIsInvalid(0, 6, grid);
-            }
-            case MIDDLE -> {
+
+            case MIDDLE:
                 if (squareIsInvalid(3, 0, grid)) return true;
                 if (squareIsInvalid(3, 3, grid)) return true;
                 return squareIsInvalid(3, 6, grid);
-            }
-            case BOTTOM -> {
+
+            case BOTTOM:
                 if (squareIsInvalid(6, 0, grid)) return true;
                 if (squareIsInvalid(6, 3, grid)) return true;
                 return squareIsInvalid(6, 6, grid);
-            }
-            default -> {
+
+            default:
                 return false;
-            }
+
         }
     }
 
@@ -108,7 +108,7 @@ public class GameLogic {
         return false;
     }
 
-    private static boolean tilesAreNotFilled(int[][] grid) {
+    public static boolean tilesAreNotFilled(int[][] grid) {
         for (int xIndex = 0; xIndex < GRID_BOUNDARY; xIndex++) {
             for (int yIndex = 0; yIndex < GRID_BOUNDARY; yIndex++) {
                 if (grid[xIndex][yIndex] == 0) return true;

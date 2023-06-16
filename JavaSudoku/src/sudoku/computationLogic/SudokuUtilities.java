@@ -18,5 +18,4 @@ public class SudokuUtilities {
         return newArray;
     }
 
-
 }

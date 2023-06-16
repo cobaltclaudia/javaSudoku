@@ -7,7 +7,7 @@ import java.io.*;
 
 public class LocalStorageImpl implements IStorage {
 
-    private static File GAME_DATA = new File(System.getProperty("user.home"), "gamedata.txt");
+    private static final File GAME_DATA = new File(System.getProperty("user.home"), "gamedata.txt");
     @Override
     public void updateGameData(SudokuGame game) throws IOException {
 
