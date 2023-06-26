@@ -77,10 +77,8 @@ public class GameLogic {
                 if (squareIsInvalid(6, 0, grid)) return true;
                 if (squareIsInvalid(6, 3, grid)) return true;
                 return squareIsInvalid(6, 6, grid);
-
             default:
                 return false;
-
         }
     }
 
@@ -102,7 +100,7 @@ public class GameLogic {
     }
 
     private static boolean collectionHasRepeats(List<Integer> collection) {
-        for (int index = 0; index < GRID_BOUNDARY; index++) {
+        for (int index = 1; index <= GRID_BOUNDARY; index++) {
             if (Collections.frequency(collection, index) > 1) return true;
         }
         return false;

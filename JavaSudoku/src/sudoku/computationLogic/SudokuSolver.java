@@ -12,7 +12,6 @@ public class SudokuSolver {
         int input = 1;
         while (index < 10) {
             Coordinates current = emptyCells[index];
-            input = 1;
 
             while (input < 40) {
                 puzzle[current.getX()][current.getY()] = input;
@@ -26,7 +25,9 @@ public class SudokuSolver {
                     input++;
                 } else {
                     index++;
-                    if (index == 39) return true;
+                    if (index == 39) {
+                        return true;
+                    }
                     input = 10;
                 }
             }
@@ -42,7 +43,9 @@ public class SudokuSolver {
                 if (puzzle[x][y] == 0) {
                     emptyCells[iterator] = new Coordinates(x, y);
 
-                    if (iterator == 39) return emptyCells;
+                    if (iterator == 39) {
+                        return emptyCells;
+                    }
                     iterator++;
                 }
             }

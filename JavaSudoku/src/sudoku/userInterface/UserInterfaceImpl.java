@@ -36,7 +36,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private static final String SUDOKU = "Sudoku";
 
     public UserInterfaceImpl(Stage stage) {
-        this.stage =  stage;
+        this.stage = stage;
         this.root = new Group();
         this.textFieldCoordinates = new HashMap<>();
         initializeUserInterface();
@@ -54,11 +54,11 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private void drawGridLines(Group root) {
         int XAndY = 114;
         int index = 0;
-        while(index < 8) {
+        while (index < 8) {
             int thickness;
-            if(index == 2 || index == 5) {
+            if (index == 2 || index == 5) {
                 thickness = 3;
-            }else{
+            } else {
                 thickness = 2;
             }
 
@@ -84,14 +84,14 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private Rectangle getLine(double x,
                               double y,
                               double height,
-                              double width ) {
+                              double width) {
         Rectangle line = new Rectangle();
         line.setX(x);
         line.setY(y);
         line.setHeight(height);
         line.setWidth(width);
         line.setFill(Color.BLACK);
-       return line;
+        return line;
     }
 
     private void drawTextFields(Group root) {
@@ -100,8 +100,8 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
         final int xAndYDelta = 64;
 
-        for (int xIndex = 0; xIndex < 9 ; xIndex++){
-            for (int yIndex = 0; yIndex < 9 ; yIndex++){
+        for (int xIndex = 0; xIndex < 9; xIndex++) {
+            for (int yIndex = 0; yIndex < 9; yIndex++) {
                 int x = xOrigin + xIndex * xAndYDelta;
                 int y = yOrigin + yIndex * xAndYDelta;
 
@@ -134,11 +134,11 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
         boardBackground.setWidth(BOARD_X_AND_Y);
         boardBackground.setHeight(BOARD_X_AND_Y);
         boardBackground.setFill(BOARD_BACKGROUND_COLOR);
-        root.getChildren().addAll(boardBackground);
+        root.getChildren().add(boardBackground);
     }
 
     private void drawTitle(Group root) {
-        Text title = new Text(235,690,SUDOKU);
+        Text title = new Text(235, 690, SUDOKU);
         title.setFill(Color.WHITE);
         Font titleFont = new Font(43);
         title.setFont(titleFont);
@@ -157,8 +157,8 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     }
 
     @Override
-    public void updateSquare(int x, int y, int input){
-        SudokuTextField tile = textFieldCoordinates.get(new Coordinates(x,y));
+    public void updateSquare(int x, int y, int input) {
+        SudokuTextField tile = textFieldCoordinates.get(new Coordinates(x, y));
         String value = Integer.toString(input);
         if (value.equals("0")) value = "";
         tile.textProperty().setValue(value);
@@ -166,17 +166,17 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
     @Override
     public void updateBoard(SudokuGame game) {
-        for (int xIndex = 0; xIndex < 9; xIndex++){
-            for (int yIndex = 0; yIndex < 9; yIndex++){
+        for (int xIndex = 0; xIndex < 9; xIndex++) {
+            for (int yIndex = 0; yIndex < 9; yIndex++) {
                 TextField tile = textFieldCoordinates.get(new Coordinates(xIndex, yIndex));
                 String value = Integer.toString(game.getCopyOfGridState()[xIndex][yIndex]);
                 if (value.equals("0")) value = "";
                 tile.setText(value);
-                if(game.getGameState() == GameState.NEW){
-                    if(value.equals("")){
+                if (game.getGameState() == GameState.NEW) {
+                    if (value.equals("")) {
                         tile.setStyle("-fx-opacity: 1;");
                         tile.setDisable(false);
-                    }else{
+                    } else {
                         tile.setStyle("-fx-opacity: 0.8;");
                         tile.setDisable(true);
                     }
@@ -189,7 +189,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     public void showDialog(String message) {
         Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.OK);
         dialog.showAndWait();
-        if(dialog.getResult() == ButtonType.OK) listener.onDialogClick();
+        if (dialog.getResult() == ButtonType.OK) listener.onDialogClick();
     }
 
     @Override
@@ -199,14 +199,24 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     }
 
     @Override
-    public void handle(KeyEvent event){
-        if(event.getEventType() == KeyEvent.KEY_PRESSED){
-            if(event.getText().matches("[0-9]")){
+    public void handle(KeyEvent event) {
+        if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+            if (event.getText().equals("0")
+                    || event.getText().equals("1")
+                    || event.getText().equals("2")
+                    || event.getText().equals("3")
+                    || event.getText().equals("4")
+                    || event.getText().equals("5")
+                    || event.getText().equals("6")
+                    || event.getText().equals("7")
+                    || event.getText().equals("8")
+                    || event.getText().equals("9")
+            ) {
                 int value = Integer.parseInt(event.getText());
                 handleInput(value, event.getSource());
-            }else if (event.getCode() == KeyCode.BACK_SPACE){
+            } else if (event.getCode() == KeyCode.BACK_SPACE) {
                 handleInput(0, event.getSource());
-            }else{
+            } else {
                 ((TextField) event.getSource()).setText("");
             }
         }

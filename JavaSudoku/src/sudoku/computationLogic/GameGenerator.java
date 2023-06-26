@@ -22,7 +22,6 @@ public class GameGenerator {
         while (!solvable) {
             SudokuUtilities.copySudokuArrayValues(solvedGame, solvableArray);
             int index = 0;
-
             while (index < 40) {
                 int xCoordinate = random.nextInt(GRID_BOUNDARY);
                 int yCoordinate = random.nextInt(GRID_BOUNDARY);
@@ -67,13 +66,15 @@ public class GameGenerator {
 
                 int xCoordinate = random.nextInt(GRID_BOUNDARY);
                 int yCoordinate = random.nextInt(GRID_BOUNDARY);
+
                 if (newGrid[xCoordinate][yCoordinate] == 0) {
                     newGrid[xCoordinate][yCoordinate] = value;
 
                     if (GameLogic.sudokuIsInvalid(newGrid)) {
                         newGrid[xCoordinate][yCoordinate] = 0;
                         interrupt++;
-                    } else {
+                    }
+                    else {
                         allocTracker.add(new Coordinates(xCoordinate, yCoordinate));
                         allocations++;
                     }
@@ -83,10 +84,10 @@ public class GameGenerator {
         return newGrid;
     }
 
-    private static void clearArray(int[][] newGride) {
+    private static void clearArray(int[][] newGrid) {
         for (int xIndex = 0; xIndex < GRID_BOUNDARY; xIndex++) {
             for (int yIndex = 0; yIndex < GRID_BOUNDARY; yIndex++) {
-                newGride[xIndex][yIndex] = 0;
+                newGrid[xIndex][yIndex] = 0;
             }
         }
     }

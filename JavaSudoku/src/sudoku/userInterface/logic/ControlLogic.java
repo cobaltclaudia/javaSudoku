@@ -11,8 +11,8 @@ import java.io.IOException;
 
 public class ControlLogic implements IUserInterfaceContract.EventListener {
 
-    private IStorage storage;
-    private IUserInterfaceContract.View view;
+    private final IStorage storage;
+    private final IUserInterfaceContract.View view;
 
     public ControlLogic(IStorage storage, IUserInterfaceContract.View view){
         this.storage = storage;
@@ -37,7 +37,6 @@ public class ControlLogic implements IUserInterfaceContract.EventListener {
             e.printStackTrace();
             view.showError(Messages.ERROR);
         }
-
     }
 
     @Override
