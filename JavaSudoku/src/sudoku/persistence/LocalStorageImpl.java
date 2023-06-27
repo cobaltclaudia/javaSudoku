@@ -3,11 +3,16 @@ package sudoku.persistence;
 import sudoku.problemDomain.IStorage;
 import sudoku.problemDomain.SudokuGame;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.time.LocalDateTime;
 
 public class LocalStorageImpl implements IStorage {
-
-    private static final File GAME_DATA = new File(System.getProperty("user.home"), "gamedata.txt");
+    private static final File GAME_DATA = new File(System.getProperty("user.home"), String.valueOf(LocalDateTime.now()));
     @Override
     public void updateGameData(SudokuGame game) throws IOException {
 
